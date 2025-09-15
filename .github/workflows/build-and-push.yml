@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-publish-quarkus-app:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
