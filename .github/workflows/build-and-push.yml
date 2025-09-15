@@ -24,7 +24,7 @@ jobs:
 
       - name: Compile Quarkus app
         run: |
-          ./mvnw clean package
+          mvn clean package
 
       - name: Build and push
         uses: docker/build-push-action@v6
