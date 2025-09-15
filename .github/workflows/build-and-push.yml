@@ -24,10 +24,13 @@ jobs:
       - name: Compile Quarkus app
         run: |
           mvn clean package
+
+      - name: verify artifact
+        run: pwd ; ls -la; ls -la target ; ls -lh target/quarkus-app-1.0.0-SNAPSHOT.jar
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: user/app:latest
+          tags: latest
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
