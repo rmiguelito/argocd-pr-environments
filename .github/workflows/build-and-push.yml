@@ -62,10 +62,10 @@ jobs:
 
       - name: Update deployment image tag and ingress host
         run: |
-          yq -i '.image.tag = "${{ github.run_number }}-${{ github.sha }}"' values.yaml
+          yq -i ".image.tag = \"${{ github.run_number }}-${{ github.sha }}\"" values.yaml
           BRANCH_NAME=$(echo "${{ github.ref_name }}" | tr '/' '-')
-          HOST=${BRANCH_NAME}.local.io
-          yq -i '.ingress.hosts[0].host = "$HOST"' values.yaml
+          HOST="${BRANCH_NAME}.local.io"
+          yq -i ".ingress.hosts[0].host = \"$HOST\"" values.yaml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
