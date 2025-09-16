@@ -63,16 +63,16 @@ jobs:
       - name: Update deployment image tag and ingress host
         run: |
           yq -i '.image.tag = "${{ github.run_number }}-${{ github.sha }}"' values.yaml
-          # BRANCH_NAME=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
-          # HOST=pr-${BRANCH_NAME}.example.com
-          # sed -i "s|host: pr-branch-placeholder.example.com|host: $HOST|" .k8s/ingress.yaml
+          BRANCH_NAME=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
+          HOST=${BRANCH_NAME}.local.io
+          yq -i '.ingress.hosts[0].host = "$HOST"' values.yaml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GH_PAT }}
           title: 'Ephemeral Environment: Update image tag to ${{ github.run_number }} - ${{ github.sha }}'
-          body: 'Automated PR for create ephemerak environment with image tag ${{ github.run_number }} - ${{ github.sha }}.'
+          body: 'Automated PR for create ephemeral environment with image tag ${{ github.run_number }} - ${{ github.sha }}.'
           base: main
           branch: ${{ github.ref_name }}
           labels: ephemeral-environment
