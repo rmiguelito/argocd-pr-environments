@@ -9,7 +9,7 @@ spec:
   - pullRequest:
       github:
         owner: rmiguelito
-        repo: argocd-pr-environments
+        repo: argocd-pr-environments-config
         tokenRef:
           secretName: github-token
           key: token
