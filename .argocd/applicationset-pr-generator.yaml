@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: my-pr-apps
+  name: ephv-appset
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -14,16 +14,16 @@ spec:
           secretName: github-token
           key: token
         labels:
-          - load-test
+          - ephemeral-environment
       requeueAfterSeconds: 15
   template:
     metadata:
-      name: '{{.branch}}-{{.number}}-lb-test'
+      name: '{{.branch}}-{{.number}}-ephv'
     spec:
       source:
-        repoURL: 'https://github.com/rmiguelito/argocd-pr-environments.git'
+        repoURL: 'https://github.com/rmiguelito/argocd-pr-environments-config.git'
         targetRevision: '{{.head_sha}}'
-        path: .chart         # <— where your chart is located in the repo
+        path: .
         helm:
           releaseName: '{{.branch}}-{{.number}}'
           valueFiles:

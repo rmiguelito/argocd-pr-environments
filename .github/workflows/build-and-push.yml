@@ -70,4 +70,4 @@ jobs:
           body: 'Automated PR for load testing with image tag ${{ github.run_number }} - ${{ github.sha }}.'
           base: main
           branch: ${{ github.ref_name }}
-          labels: load-test
+          labels: ephemeral-environment
