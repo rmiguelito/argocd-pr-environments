@@ -40,24 +40,17 @@ jobs:
         with:
           push: true
           context: .
-          tags: rmiguel/argocd-pr-env:${{ github.run_number }},rmiguel/argocd-pr-env:latest
+          tags: rmiguel/argocd-pr-env:${{ github.run_number }}-${{ github.sha }},rmiguel/argocd-pr-env:latest
           
       - name: Update deployment image tag
         run: |
-          sed -i 's|image: rmiguel/argocd-pr-env:.*|image: rmiguel/argocd-pr-env:${{ github.sha }}|' .k8s/deployment.yaml
-
-      # - name: Commit and push changes
-      #   uses: stefanzweifel/git-auto-commit-action@v5
-      #   with:
-      #     commit_message: 'chore: update image tag for load test ${{ github.sha }}'
-      #     branch: ${{ github.ref_name }}
-      #     file_pattern: .k8s/deployment.yaml
+          sed -i 's|image: rmiguel/argocd-pr-env:.*|image: rmiguel/argocd-pr-env:${{ github.run_number }}-${{ github.sha }}|' .k8s/deployment.yaml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          title: 'Load Test: Update image tag to ${{ github.sha }}'
-          body: 'Automated PR for load testing with image tag ${{ github.sha }}.'
+          title: 'Load Test: Update image tag to ${{ github.run_number }} - ${{ github.sha }}'
+          body: 'Automated PR for load testing with image tag ${{ github.run_number }} - ${{ github.sha }}.'
           base: main
           branch: ${{ github.ref_name }}
           labels: load-test
