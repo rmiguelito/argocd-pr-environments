@@ -3,7 +3,7 @@ name: Build and Push Quarkus App
 on:
   push:
     branches:
-      - feature/*
+      - feature-*
     paths-ignore:
       - '.github/workflows/**'      
       - '.k8s/**'
