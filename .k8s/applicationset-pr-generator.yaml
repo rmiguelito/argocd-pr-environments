@@ -22,7 +22,7 @@ spec:
       requeueAfterSeconds: 30
   template:
     metadata:
-      name: 'sample-app-{{.branch}}-{{.number}}'
+      name: 'lb-test-{{.branch}}-{{.number}}'
     spec:
       source:
         repoURL: 'https://github.com/rmiguelito/argocd-pr-environments.git'
