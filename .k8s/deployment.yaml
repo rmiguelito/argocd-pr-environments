@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-pr-env
+  labels:
+    app: argocd-pr-env
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: argocd-pr-env
+  template:
+    metadata:
+      labels:
+        app: argocd-pr-env
+    spec:
+      containers:
+        - name: argocd-pr-env
+          image: rmiguel/argocd-pr-env:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JAVA_OPTS
+              value: "-Dquarkus.http.host=0.0.0.0"
