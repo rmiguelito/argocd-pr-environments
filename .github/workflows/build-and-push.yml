@@ -3,7 +3,7 @@ name: Build and Push Quarkus App
 on:
   push:
     branches:
-      - feature-*
+      - ephv-*
     paths-ignore:
       - '.github/workflows/**'      
       - '.chart/**'
@@ -43,22 +43,32 @@ jobs:
           context: .
           tags: rmiguel/argocd-pr-env:${{ github.run_number }}-${{ github.sha }},rmiguel/argocd-pr-env:latest
           
-
-      - name: Update deployment image tag and ingress host
-        run: |
-          #BRANCH_NAME=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
-          #yq -i '.nameOverride = "$BRANCH_NAME"' .chart/values.yaml
-          yq -i '.image.tag = "${{ github.run_number }}-${{ github.sha }}"' .chart/values.yaml
-          # sed -i 's|image: rmiguel/argocd-pr-env:.*|image: rmiguel/argocd-pr-env:${{ github.run_number }}-${{ github.sha }}|' .k8s/deployment.yaml
-          # BRANCH_NAME=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
-          # HOST=pr-${BRANCH_NAME}.example.com
-          # sed -i "s|host: pr-branch-placeholder.example.com|host: $HOST|" .k8s/ingress.yaml
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+      - name: Checkout config repo
+        uses: actions/checkout@v4
         with:
-          title: 'Load Test: Update image tag to ${{ github.run_number }} - ${{ github.sha }}'
-          body: 'Automated PR for load testing with image tag ${{ github.run_number }} - ${{ github.sha }}.'
-          base: main
-          branch: ${{ github.ref_name }}
-          labels: load-test
+          repository: rmiguelito/argocd-pr-environments-config
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: list files for debug
+        run: |
+          pwd
+          ls -la
+      # - name: Update deployment image tag and ingress host
+      #   run: |
+      #     #BRANCH_NAME=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
+      #     #yq -i '.nameOverride = "$BRANCH_NAME"' .chart/values.yaml
+      #     yq -i '.image.tag = "${{ github.run_number }}-${{ github.sha }}"' .chart/values.yaml
+      #     # sed -i 's|image: rmiguel/argocd-pr-env:.*|image: rmiguel/argocd-pr-env:${{ github.run_number }}-${{ github.sha }}|' .k8s/deployment.yaml
+      #     # BRANCH_NAME=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
+      #     # HOST=pr-${BRANCH_NAME}.example.com
+      #     # sed -i "s|host: pr-branch-placeholder.example.com|host: $HOST|" .k8s/ingress.yaml
+
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v7
+      #   with:
+      #     title: 'Load Test: Update image tag to ${{ github.run_number }} - ${{ github.sha }}'
+      #     body: 'Automated PR for load testing with image tag ${{ github.run_number }} - ${{ github.sha }}.'
+      #     base: main
+      #     branch: ${{ github.ref_name }}
+      #     labels: load-test
