@@ -4,7 +4,7 @@ nameOverride: "teste"
 
 image:
   repository: rmiguel/argocd-pr-env
-  tag: "1.25"
+  tag: "40-4711259be614b39a47f2adba1de146269858ce5e"
   pullPolicy: IfNotPresent
 
 service:
@@ -21,3 +21,4 @@ ingress:
         - path: /
           pathType: Prefix
   tls: []
+nameOverride: $BRANCH_NAME
