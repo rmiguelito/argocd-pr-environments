@@ -39,7 +39,7 @@ jobs:
         with:
           push: true
           context: .
-          tags: rmiguel/argocd-pr-env:${{ github.ref_name	 }}-${{ github.run_number }},rmiguel/argocd-pr-env:latest
+          tags: rmiguel/argocd-pr-env:${{ github.run_number }},rmiguel/argocd-pr-env:latest
           
       - name: Update deployment image tag
         run: |
