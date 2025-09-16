@@ -21,4 +21,3 @@ ingress:
         - path: /
           pathType: Prefix
   tls: []
-nameOverride: $BRANCH_NAME
