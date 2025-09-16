@@ -19,7 +19,7 @@ spec:
         labels:
         - load-test
   # pullRequestState removed: not supported in this CRD version
-      requeueAfterSeconds: 30
+      requeueAfterSeconds: 15
   template:
     metadata:
       name: 'lb-test-{{.branch}}-{{.number}}'
@@ -32,3 +32,9 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
