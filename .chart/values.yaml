@@ -1,7 +1,5 @@
 replicaCount: 2
 
-nameOverride: "teste"
-
 image:
   repository: rmiguel/argocd-pr-env
   tag: "40-4711259be614b39a47f2adba1de146269858ce5e"
