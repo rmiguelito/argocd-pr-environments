@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: argocd-pr-env
-          image: rmiguel/argocd-pr-env:4beeb2a623ed9b7a7cf0e360d4cc2387f632d43b
+          image: rmiguel/argocd-pr-env:36-4c09d6cbee23d9f3fd0541b09584bf9e9d5a34b1
           ports:
             - containerPort: 8080
           env:
