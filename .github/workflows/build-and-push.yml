@@ -49,12 +49,16 @@ jobs:
           repository: rmiguelito/argocd-pr-environments-config
           ref: ${{ github.ref_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
-
-
-      - name: list files for debug
+      - name: Setup Git
         run: |
-          pwd
-          ls -la
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create ephemeral branch
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          git checkout -b $BRANCH
+          git push origin $BRANCH
 
       - name: Update deployment image tag and ingress host
         run: |
