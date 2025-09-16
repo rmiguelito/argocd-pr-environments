@@ -3,7 +3,7 @@ name: Build and Push Quarkus App
 on:
   push:
     branches:
-      - ephv-*
+      - env-temp-*
     paths-ignore:
       - '.github/workflows/**'      
       - '.chart/**'
