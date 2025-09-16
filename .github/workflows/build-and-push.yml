@@ -52,11 +52,12 @@ jobs:
           branch: ${{ github.ref_name }}
           file_pattern: .k8s/deployment.yaml
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          title: 'Load Test: Update image tag to ${{ github.sha }}'
-          body: 'Automated PR for load testing with image tag ${{ github.sha }}.'
-          base: main
-          branch: ${{ github.ref_name }}
-          labels: load-test          
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v6
+      #   with:
+      #     title: 'Load Test: Update image tag to ${{ github.sha }}'
+      #     body: 'Automated PR for load testing with image tag ${{ github.sha }}.'
+      #     base: main
+      #     branch: ${{ github.ref_name }}
+      #     labels: load-test          
+      #     branch-suffix: short-commit-hash
