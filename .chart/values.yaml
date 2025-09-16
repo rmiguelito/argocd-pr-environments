@@ -1,0 +1,23 @@
+replicaCount: 2
+
+nameOverride: "teste"
+
+image:
+  repository: rmiguel/argocd-pr-env
+  tag: "1.25"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: nginx
+  annotations: {}
+  hosts:
+    - host: myapp.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []

@@ -8,17 +8,13 @@ spec:
   generators:
   - pullRequest:
       github:
-        # The GitHub organization or user.
         owner: rmiguelito
-        # The Github repository
         repo: argocd-pr-environments
         tokenRef:
           secretName: github-token
           key: token
-        # Labels is used to filter the PRs that you want to target. (optional)
         labels:
-        - load-test
-  # pullRequestState removed: not supported in this CRD version
+          - load-test
       requeueAfterSeconds: 15
   template:
     metadata:
@@ -27,7 +23,14 @@ spec:
       source:
         repoURL: 'https://github.com/rmiguelito/argocd-pr-environments.git'
         targetRevision: '{{.head_sha}}'
-        path: .k8s/
+        chart: myapp                # <— name of your Helm chart (from Chart.yaml)
+        path: charts/myapp          # <— where your chart is located in the repo
+        helm:
+          releaseName: '{{.branch}}-{{.number}}'
+          values: |
+            nameOverride: "pr-{{.number}}"
+            image:
+              tag: "{{.head_sha}}"
       project: "default"
       destination:
         server: https://kubernetes.default.svc
@@ -37,4 +40,4 @@ spec:
           prune: true
           selfHeal: true
         syncOptions:
-        - CreateNamespace=true
+          - CreateNamespace=true
