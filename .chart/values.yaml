@@ -1,16 +1,12 @@
 replicaCount: 2
-
 nameOverride: "teste"
-
 image:
   repository: rmiguel/argocd-pr-env
-  tag: "1.25"
+  tag: "42-bf01d578ce3ac43f0dab3305ad95fb302c6e1416"
   pullPolicy: IfNotPresent
-
 service:
   type: ClusterIP
   port: 80
-
 ingress:
   enabled: false
   className: nginx
