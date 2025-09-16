@@ -23,14 +23,11 @@ spec:
       source:
         repoURL: 'https://github.com/rmiguelito/argocd-pr-environments.git'
         targetRevision: '{{.head_sha}}'
-        chart: myapp                # <— name of your Helm chart (from Chart.yaml)
-        path: charts/myapp          # <— where your chart is located in the repo
+        path: .chart         # <— where your chart is located in the repo
         helm:
           releaseName: '{{.branch}}-{{.number}}'
-          values: |
-            nameOverride: "pr-{{.number}}"
-            image:
-              tag: "{{.head_sha}}"
+          valueFiles:
+          - values.yaml
       project: "default"
       destination:
         server: https://kubernetes.default.svc

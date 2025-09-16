@@ -6,7 +6,8 @@ on:
       - feature-*
     paths-ignore:
       - '.github/workflows/**'      
-      - '.k8s/**'
+      - '.chart/**'
+      - '.argocd/**'
 
   workflow_dispatch:
 
@@ -45,8 +46,8 @@ jobs:
 
       - name: Update deployment image tag and ingress host
         run: |
-          BRANCH_NAME=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
-          yq -i '.nameOverride = "$BRANCH_NAME"' .chart/values.yaml
+          #BRANCH_NAME=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
+          #yq -i '.nameOverride = "$BRANCH_NAME"' .chart/values.yaml
           yq -i '.image.tag = "${{ github.run_number }}-${{ github.sha }}"' .chart/values.yaml
           # sed -i 's|image: rmiguel/argocd-pr-env:.*|image: rmiguel/argocd-pr-env:${{ github.run_number }}-${{ github.sha }}|' .k8s/deployment.yaml
           # BRANCH_NAME=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
