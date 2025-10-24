@@ -73,6 +73,7 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           title: 'Ephemeral Environment: Update image tag to ${{ github.run_number }} - ${{ github.ref_name }}'
           body: 'Automated PR for create ephemeral environment with image tag ${{ github.run_number }} - ${{ github.ref_name }}.'
+          commit-message: 'Changed image tag ${{ github.run_number }} - ${{ github.ref_name }}.'
           base: main
           branch: ${{ github.ref_name }}
           labels: ephemeral-environment
