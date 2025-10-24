@@ -54,11 +54,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create ephemeral branch
-        run: |
-          BRANCH="${{ github.ref_name }}"
-          git checkout -b $BRANCH
-          git push origin $BRANCH --force
+#      - name: Create ephemeral branch
+#        run: |
+#          BRANCH="${{ github.ref_name }}"
+#          git checkout -b $BRANCH
+#          git push origin $BRANCH --force
 
       - name: Update deployment image tag and ingress host
         run: |
