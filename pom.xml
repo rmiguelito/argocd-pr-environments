@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.demo</groupId>
     <artifactId>quarkus-app</artifactId>
-    <version>1.0.200</version>
+    <version>1.0.201</version>
 
     <properties>
         <compiler-plugin.version>3.14.0</compiler-plugin.version>
